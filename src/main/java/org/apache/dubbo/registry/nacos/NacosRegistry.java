@@ -14,15 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.dubbo.registry.nacos;
+package org.apache.dubbo.registry.nacos;
 
-import com.alibaba.dubbo.common.Constants;
-import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.common.utils.NetUtils;
-import com.alibaba.dubbo.common.utils.UrlUtils;
-import com.alibaba.dubbo.registry.NotifyListener;
-import com.alibaba.dubbo.registry.Registry;
-import com.alibaba.dubbo.registry.support.FailbackRegistry;
+import org.apache.dubbo.common.Constants;
+import org.apache.dubbo.common.URL;
+import org.apache.dubbo.common.utils.NetUtils;
+import org.apache.dubbo.common.utils.UrlUtils;
+import org.apache.dubbo.registry.NotifyListener;
+import org.apache.dubbo.registry.Registry;
+import org.apache.dubbo.registry.support.FailbackRegistry;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.listener.Event;
@@ -49,10 +49,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static com.alibaba.dubbo.common.Constants.CONFIGURATORS_CATEGORY;
-import static com.alibaba.dubbo.common.Constants.CONSUMERS_CATEGORY;
-import static com.alibaba.dubbo.common.Constants.PROVIDERS_CATEGORY;
-import static com.alibaba.dubbo.common.Constants.ROUTERS_CATEGORY;
+import static org.apache.dubbo.common.Constants.CONFIGURATORS_CATEGORY;
+import static org.apache.dubbo.common.Constants.CONSUMERS_CATEGORY;
+import static org.apache.dubbo.common.Constants.PROVIDERS_CATEGORY;
+import static org.apache.dubbo.common.Constants.ROUTERS_CATEGORY;
 
 /**
  * Nacos {@link Registry}
@@ -140,7 +140,7 @@ public class NacosRegistry extends FailbackRegistry {
         return urls;
     }
 
-    protected void doRegister(URL url) {
+    public void doRegister(URL url) {
         final String serviceName = getServiceName(url);
         final Instance instance = createInstance(url);
         execute(new NamingServiceCallback() {
@@ -150,7 +150,7 @@ public class NacosRegistry extends FailbackRegistry {
         });
     }
 
-    protected void doUnregister(final URL url) {
+    public void doUnregister(final URL url) {
         execute(new NamingServiceCallback() {
             public void callback(NamingService namingService) throws NacosException {
                 String serviceName = getServiceName(url);
@@ -160,7 +160,7 @@ public class NacosRegistry extends FailbackRegistry {
         });
     }
 
-    protected void doSubscribe(final URL url, final NotifyListener listener) {
+    public void doSubscribe(final URL url, final NotifyListener listener) {
         List<String> serviceNames = getServiceNames(url, listener);
         doSubscribe(url, listener, serviceNames);
     }
@@ -179,7 +179,7 @@ public class NacosRegistry extends FailbackRegistry {
     }
 
     @Override
-    protected void doUnsubscribe(URL url, NotifyListener listener) {
+    public void doUnsubscribe(URL url, NotifyListener listener) {
         if (isAdminProtocol(url)) {
             shutdownServiceNamesLookup();
         }

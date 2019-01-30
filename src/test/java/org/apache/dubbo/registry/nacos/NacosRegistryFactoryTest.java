@@ -14,19 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.dubbo.registry.nacos;
+package org.apache.dubbo.registry.nacos;
+
+import org.apache.dubbo.registry.nacos.NacosRegistryFactory;
 
 /**
- * {@link NacosRegistry} Test
+ * {@link NacosRegistryFactory} Test
  *
  * @since 2.6.5
  */
-public class NacosRegistryTest {
-
-    // Test case Dubbo OPS :
-    // URL : admin://30.5.124.12?category=providers,consumers,routers,configurators&check=false&classifier=*&enabled=*&group=*&interface=*&version=*
-    public void testDoSubscribeForDubboOps() {
-
-    }
-
+public class NacosRegistryFactoryTest {
 }
